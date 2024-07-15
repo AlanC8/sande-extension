@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AI Clothing Selector</title>
+  <style>
+    body {
+      width: 300px;
+      font-family: Arial, sans-serif;
+    }
+    #status {
+      margin-top: 20px;
+    }
+    #category-selection, #image-selection, #generate-button, #spinner, #save-button, #logout-button {
+      display: none;
+    }
+    img {
+      max-width: 100%;
+    }
+    #spinner {
+      margin: 20px 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>AI Clothing Selector</h1>
+  <p id="status">Please log in.</p>
+  <form id="login-form">
+    <input type="email" id="email" placeholder="Email" required><br>
+    <input type="password" id="password" placeholder="Password" required><br>
+    <button type="submit">Login</button>
+  </form>
+  <button id="logout-button">Logout</button>
+  <div id="category-selection">
+    <label for="category">Choose category:</label>
+    <select id="category">
+      <option value="upper_body">Upper Body</option>
+      <option value="lower_body">Lower Body</option>
+      <option value="dresses">Dresses</option>
+    </select>
+  </div>
+  <div id="image-selection">
+    <p>Selected image:</p>
+    <img id="selected-image" src="" alt="Selected Image">
+  </div>
+  <button id="generate-button">Generate</button>
+  <div id="spinner">
+    <img src="spinner.gif" alt="Loading...">
+  </div>
+  <a id="save-button" download="generated_image.png">Save</a>
+  <script src="popup.js"></script>
+</body>
+</html>
