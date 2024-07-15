@@ -1,5 +1,6 @@
 document.addEventListener("click", (event) => {
   let imageUrl = '';
+
   if (event.target.tagName === "IMG") {
     imageUrl = event.target.src;
   } else {
@@ -12,22 +13,18 @@ document.addEventListener("click", (event) => {
   if (imageUrl) {
     console.log("Image URL clicked:", imageUrl);
 
-    try {
-      chrome.runtime.sendMessage(
-        { type: "imageSelected", data: { imageUrl } },
-        (response) => {
-          if (chrome.runtime.lastError) {
-            console.error("Error sending message:", chrome.runtime.lastError.message);
-          } else if (response && response.status === "success") {
-            console.log("Image selected:", imageUrl);
-            alert("Image selected. Open the extension popup to generate.");
-          } else {
-            console.error("Error selecting image", response);
-          }
+    chrome.runtime.sendMessage(
+      { type: "imageSelected", data: { imageUrl } },
+      (response) => {
+        if (chrome.runtime.lastError) {
+          console.error("Error sending message:", chrome.runtime.lastError.message);
+        } else if (response && response.status === "success") {
+          console.log("Image selected:", imageUrl);
+          alert("Image selected. Open the extension popup to generate.");
+        } else {
+          console.error("Error selecting image", response);
         }
-      );
-    } catch (error) {
-      console.error("Error in content script:", error);
-    }
+      }
+    );
   }
 });

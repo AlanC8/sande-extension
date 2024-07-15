@@ -6,11 +6,19 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   console.log("Message received in background script:", message);
 
   if (message.type === "imageSelected") {
-    const { imageUrl } = message.data;
-    chrome.storage.local.set({ imageUrl: imageUrl }, () => {
-      console.log("Image URL saved:", imageUrl);
+    chrome.storage.local.set({ imageUrl: message.data.imageUrl }, () => {
+      console.log("Image URL saved:", message.data.imageUrl);
       sendResponse({ status: "success" });
     });
-    return true; // To keep the messaging channel open for sendResponse
+  } else if (message.type === "getSessionData") {
+    chrome.storage.local.get(["userToken", "userImage", "imageUrl"], (data) => {
+      sendResponse({ data });
+    });
+  } else if (message.type === "setSessionData") {
+    chrome.storage.local.set(message.data, () => {
+      console.log("Session data updated:", message.data);
+      sendResponse({ status: "success" });
+    });
   }
+  return true;
 });

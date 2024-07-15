@@ -5,7 +5,10 @@
   "description": "Select and replace clothing images.",
   "permissions": [
     "activeTab",
-    "storage"
+    "storage",
+    "http://localhost:3001/",
+    "http://*/",
+    "https://*/"
   ],
   "background": {
     "service_worker": "background.js"
